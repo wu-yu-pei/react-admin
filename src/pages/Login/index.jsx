@@ -3,6 +3,7 @@ import login from './images/logo.png';
 import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import React from 'react';
+import {Redirect} from 'react-router-dom'
 import {reqLogin} from '../../api/index'
 import memoryUntil from '../../untils/memoryUntil.js'
 import storeUntil from '../../untils/storeUntil'
@@ -10,6 +11,10 @@ import storeUntil from '../../untils/storeUntil'
 const Login = (props) => {
   // 从props.history 中取出跳转路由的方法
   const $router = props.history
+  // 如果用户已经登录 就跳转到admin界面
+  if(Object.keys(memoryUntil.user).length > 0 || Object.keys(storeUntil.getUser()).length > 0) {
+    return <Redirect to="/"></Redirect>
+  }
   // 提交表单的回调
   const onFinish = async (values) => {
     const {username,password} = values
