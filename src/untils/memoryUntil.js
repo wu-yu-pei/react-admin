@@ -1,4 +1,4 @@
-const storeUntil =  {
+const memoryUntil =  {
     user:''
 }
-export default storeUntil
+export default memoryUntil

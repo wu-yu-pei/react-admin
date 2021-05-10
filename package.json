@@ -45,7 +45,8 @@
     ]
   },
   "devDependencies": {
-    "axios": "^0.21.1"
+    "axios": "^0.21.1",
+    "jsonp": "^0.2.1"
   },
   "proxy": "http://120.55.193.14:5000"
 }

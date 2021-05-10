@@ -1,4 +1,43 @@
 .header {
   height: 80px;
-  background-color: #ccc;
+  background-color: #fff;
+}
+.header .header-top {
+  width: 100%;
+  height: 40px;
+  border-bottom: 1px solid #1da570;
+  text-align: right;
+  line-height: 40px;
+}
+.header .header-top a {
+  margin: 0 25px;
+}
+.header .header-bottom {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.header .header-bottom .header-bottom-left {
+  position: relative;
+  width: 25%;
+}
+.header .header-bottom .header-bottom-left h1 {
+  font-size: 20px;
+  text-align: center;
+}
+.header .header-bottom .header-bottom-left::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 20%);
+  content: "";
+  border-top: 25px solid #fff;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 25px solid transparent;
+}
+.header .header-bottom .header-bottom-right {
+  width: 75%;
+  text-align: right;
+  margin-right: 25px;
 }

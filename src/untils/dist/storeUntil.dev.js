@@ -11,15 +11,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var storeUntil = {
   saveUser: function saveUser(user) {
-    console.log(2);
-
     _store["default"].set('user_key', user);
   },
   getUser: function getUser() {
     return _store["default"].get('user_key') || {};
   },
   removeUser: function removeUser() {
-    _store["default"].remove();
+    _store["default"].remove('user_key');
   }
 };
 var _default = storeUntil;
