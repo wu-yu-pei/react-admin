@@ -9,7 +9,10 @@
   text-align: right;
   line-height: 40px;
 }
-.header .header-top a {
+.header .header-top button {
+  border: none;
+  outline: none;
+  background-color: transparent;
   margin: 0 25px;
 }
 .header .header-bottom {

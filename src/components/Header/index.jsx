@@ -4,12 +4,12 @@ import './index.less'
 import {reqWeather} from '../../api/index'
 import {formateDate} from '../../untils/dataUtils.js';
 import memoryUntil from '../../untils/memoryUntil.js';
-import storeUntil from '../../untils/storeUntil';
 import mencConfig from '../../config/mencConfig.js';
+import MyModel from '../Model/index'
  class Header extends Component {
     state = {
         date:formateDate(Date.now()),
-        weather:''
+        weather:'',
     }
     getTime = () => {
         this.timer = setInterval(() => {
@@ -37,28 +37,23 @@ import mencConfig from '../../config/mencConfig.js';
         })
         return title
     }
-    // 退出
-    out = () => {
-        // 删除储存的用户信息
-        storeUntil.removeUser()
-        // 替换路由
-        this.props.history.replace('/login')
-    }
+    
     // 初始化相关数据
     componentDidMount() {
         this.getTime()
         this.getWeather()
     }
-    //清除定时器
-    componentWillMount() {
+    // 清除定时器
+    componentWillUnmount() {
         clearInterval(this.timer)
-    }
+    } 
     render() {
         return (
             <div className='header'>
                 <div className="header-top">
                     <span>欢迎{memoryUntil.user.username}</span>
-                    <a href="" onClick={this.out}>退出</a>
+                    {/* <button  onClick={this.out}>退出</button> */}
+                    <MyModel></MyModel>
                 </div>
                 <div className="header-bottom">
                     <div className='header-bottom-left'>
