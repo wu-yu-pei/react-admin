@@ -32,7 +32,7 @@ const Admin = () => {
                 </Sider>
                 <Layout>
                     <Header></Header>
-                    <Content style={{margin:'20px',backgroundColor:"#fff"}}>
+                    <Content style={{margin:'20px',backgroundColor:"#fff",minWidth:1277}}>
                         <Switch>
                         <Route path='/home' component={Home}/>
                         <Route path='/category' component={Category}/>

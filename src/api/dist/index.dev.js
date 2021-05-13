@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.reqWeather = exports.reqUpdate = exports.reqAddCategory = exports.reqCategory = exports.reqLogin = void 0;
+exports.reqWeather = exports.reqProduct = exports.reqUpdate = exports.reqAddCategory = exports.reqCategory = exports.reqLogin = void 0;
 
 var _ajax = _interopRequireDefault(require("./ajax"));
 
@@ -49,10 +49,20 @@ var reqUpdate = function reqUpdate(categoryId, categoryName) {
     categoryId: categoryId,
     categoryName: categoryName
   }, "POST");
-}; // 天气接口
+}; // 商品管理接口
 
 
 exports.reqUpdate = reqUpdate;
+
+var reqProduct = function reqProduct(pageNum, pageSize) {
+  return (0, _ajax["default"])(BASE + '/manage/product/list', {
+    pageNum: pageNum,
+    pageSize: pageSize
+  }, "GET");
+}; // 天气接口
+
+
+exports.reqProduct = reqProduct;
 
 var reqWeather = function reqWeather() {
   return new Promise(function (resolve, reject) {

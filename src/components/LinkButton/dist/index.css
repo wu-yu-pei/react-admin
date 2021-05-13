@@ -2,4 +2,6 @@ button {
   border: none;
   outline: none;
   background-color: transparent;
+  cursor: pointer;
+  color: #1da57a;
 }
