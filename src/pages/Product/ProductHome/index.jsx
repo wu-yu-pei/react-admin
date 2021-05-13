@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Card,Button,Input,Select, Table, Space } from 'antd'
-import {reqProduct} from '../../../api/index'
+import {reqProduct,reqSearchProduct} from '../../../api/index'
 import { PlusOutlined } from '@ant-design/icons';
 import LinkButton from '../../../components/LinkButton'
 import {PAGE_SIZE} from '../../../untils/constant'
@@ -8,19 +8,27 @@ const Option = Select.Option
 export default class ProductHome extends Component {
     // 商品数组
     state = {
+        //展示的商品
         products:[],
-        total:''
+        total:'',
+        // 搜索类型
+        type:'productName',
+        // 搜索框value
+        value:'',
+        // loading状态值
+        bool:false
     }
 
     // 请求Product数据
     getProduct =async (pagenum) => {
-        this.setState({products:[]})
-       let res = await reqProduct(pagenum,5)
-       console.log(res);
+        this.setState({bool:true})
+        let res = await reqProduct(pagenum,5)
+        console.log(res);
         if(res.status === 0) {
             const {total,list} = res.data
             console.log(total);
             this.setState({products:list,total})
+            this.setState({bool:false})
         }
     }
     // 初始化columns
@@ -66,7 +74,22 @@ export default class ProductHome extends Component {
             },
         ];
     }
-
+    //
+   async Search() {
+        this.setState({bool:true})
+        let res = await reqSearchProduct(1,5,this.state.type,this.state.value)
+        if(res.status === 0) {
+            if(res.data.list.length === 0) {
+                alert("很抱歉，没有搜寻到你查找的数据！")
+                this.setState({bool:false})
+            }
+            else {
+                this.setState({products:res.data.list,total:res.total})
+                this.setState({bool:false})
+            }
+            
+        }
+    } 
     componentWillMount() {
         this.initcolumns()
     }
@@ -74,15 +97,15 @@ export default class ProductHome extends Component {
         this.getProduct(1)
     }
     render() {
-        const {products,total} = this.state
+        const {products,total,type,value,bool} = this.state
         const title = (
             <span style={{width:500}}>
-                <Select style={{width:150}}>
-                    <Option value="1">按名称搜索</Option>
-                    <Option value="2">按描述搜索</Option>
+                <Select value={type} style={{width:150}} onChange={thevalue => this.setState({type:thevalue})}>
+                    <Option value="productName">按名称搜索</Option>
+                    <Option value="productDesc">按描述搜索</Option>
                 </Select>
-                <Input placeholder="关键字" style={{width:100,margin:"0 10px"}}></Input>
-                <Button>搜索</Button>
+                <Input placeholder="关键字" style={{width:100,margin:"0 10px"}} value={value} onChange={e => this.setState({value:e.target.value})}></Input>
+                <Button onClick={() => {this.Search()}}>搜索</Button>
             </span>
         )
         const extra = (
@@ -94,7 +117,7 @@ export default class ProductHome extends Component {
         return (
             <div>
                 <Card title={title} extra={extra} >
-                <Table rowKey='_id' columns={this.columns} loading={products.length === 0} onChange={pagenum => this.getProduct(pagenum.current)} dataSource={products} bordered pagination={{defaultPageSize:PAGE_SIZE,total,showQuickJumper:true,showSizeChanger:false}} />
+                <Table rowKey='_id' columns={this.columns} loading={bool} onChange={pagenum => this.getProduct(pagenum.current)} dataSource={products} bordered pagination={{defaultPageSize:PAGE_SIZE,total,showQuickJumper:true,showSizeChanger:false}} />
                 </Card>
             </div>
         )
