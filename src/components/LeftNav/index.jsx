@@ -22,7 +22,7 @@ export default class LeftNav extends Component {
             <div className='left-nav'>
                 <Link to='/home' className='left-nav-header'>
                     <img src={logo} alt=""/>
-                    <h1>硅谷后台</h1>
+                    <h1>React后台</h1>
                 </Link>
                 {/* 导航菜单 */}
                 <Menu
