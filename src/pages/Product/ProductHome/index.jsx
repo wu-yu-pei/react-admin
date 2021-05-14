@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {Card,Button,Input,Select, Table, Space } from 'antd'
 import {reqProduct,reqSearchProduct} from '../../../api/index'
-import { PlusOutlined } from '@ant-design/icons';
+import {  PlusOutlined } from '@ant-design/icons';
 import LinkButton from '../../../components/LinkButton'
 import {PAGE_SIZE} from '../../../untils/constant'
 const Option = Select.Option
@@ -23,13 +23,15 @@ export default class ProductHome extends Component {
     getProduct =async (pagenum) => {
         this.setState({bool:true})
         let res = await reqProduct(pagenum,5)
-        console.log(res);
         if(res.status === 0) {
             const {total,list} = res.data
-            console.log(total);
             this.setState({products:list,total})
             this.setState({bool:false})
         }
+    }
+    // 跳转到详情界面
+    goDetial(text) {
+        this.props.history.push(`/product/detial`,text)
     }
     // 初始化columns
     initcolumns = () => {
@@ -67,7 +69,7 @@ export default class ProductHome extends Component {
               key: 'action',
               render: (text, record) => (
                 <Space size="middle">
-                  <Button>详情</Button>
+                  <Button onClick={() => {return this.goDetial(text)}}>详情</Button>
                   <Button>修改</Button>
                 </Space>
               ),

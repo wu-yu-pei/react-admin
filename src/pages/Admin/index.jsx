@@ -26,7 +26,7 @@ const Admin = () => {
     return (
         
         <div className='admin-box'>
-            <Layout style={{width:"100%",height:"100%"}}>
+            <Layout style={{width:"100%",minHeight:"100vh"}}>
                 <Sider>
                     <LeftNav></LeftNav>
                 </Sider>
