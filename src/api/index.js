@@ -21,6 +21,9 @@ export const reqProduct = (pageNum,pageSize) => ajax(BASE+'/manage/product/list'
 
 // 搜索商品接口
 export const reqSearchProduct = (pageNum,pageSize,Type,Value) => ajax(BASE+'/manage/product/search',{pageNum,pageSize,[Type]:Value},'GET')
+
+//根据分类id获取分类
+export const reqInfo = (categoryId) => ajax(BASE+'/manage/category/info',{categoryId})
 // 天气接口
 export const reqWeather = () => {
     return new Promise((resolve,reject) => {

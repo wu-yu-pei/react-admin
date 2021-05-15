@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.reqWeather = exports.reqSearchProduct = exports.reqProduct = exports.reqUpdate = exports.reqAddCategory = exports.reqCategory = exports.reqLogin = void 0;
+exports.reqWeather = exports.reqInfo = exports.reqSearchProduct = exports.reqProduct = exports.reqUpdate = exports.reqAddCategory = exports.reqCategory = exports.reqLogin = void 0;
 
 var _ajax2 = _interopRequireDefault(require("./ajax"));
 
@@ -70,10 +70,19 @@ var reqSearchProduct = function reqSearchProduct(pageNum, pageSize, Type, Value)
     pageNum: pageNum,
     pageSize: pageSize
   }, Type, Value), 'GET');
-}; // 天气接口
+}; //根据分类id获取分类
 
 
 exports.reqSearchProduct = reqSearchProduct;
+
+var reqInfo = function reqInfo(categoryId) {
+  return (0, _ajax2["default"])(BASE + '/manage/category/info', {
+    categoryId: categoryId
+  });
+}; // 天气接口
+
+
+exports.reqInfo = reqInfo;
 
 var reqWeather = function reqWeather() {
   return new Promise(function (resolve, reject) {

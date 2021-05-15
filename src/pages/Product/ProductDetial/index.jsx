@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Card,List} from 'antd'
+import {reqInfo} from '../../../api/index'
 import { ArrowLeftOutlined } from '@ant-design/icons';
 const Item = List.Item
 export default class ProductDetial extends Component {
@@ -8,12 +9,28 @@ export default class ProductDetial extends Component {
         desc:'',
         price:'',
         imgs: '',
-        detail:''
+        detail:'',
+       cname1:'',
+       cname2:''
     }
-    getdetial =async () => {
+    getdetial =async () => {   
         // 从路由中取出数据
-        const {name,price,imgs,desc,detail} = this.props.location.state
-        this.setState({name,desc,price,imgs,detail})
+        console.log(this.props.location.state.pCategoryId);
+        const {name,price,imgs,desc,detail,categoryId,pCategoryId} = this.props.location.state
+        this.setState({name,desc,price,imgs,detail,categoryId,pCategoryId})
+        if(pCategoryId === 0) {
+            const res = await reqInfo(pCategoryId)
+            const cname1 = res.data.name
+            this.setState({cname1})
+        }else {
+           const res = await Promise.all([reqInfo(pCategoryId),reqInfo(categoryId)])
+                console.log(res[0]); 
+                console.log(res[1]);
+                const cname1 = res[0].status === 0 ?  res[0].data.name : '未知分类'
+                const cname2 = res[1].status === 0 ? res[1].data.name : '未知分类'
+           this.setState({cname1,cname2})
+        }
+
     }
     // 回退
     back() {
@@ -23,7 +40,7 @@ export default class ProductDetial extends Component {
         this.getdetial()
     }
     render() {
-        const {name,price,imgs,desc,detail} = this.state
+        const {name,price,imgs,desc,detail,cname1,cname2} = this.state
         const title = (
             <span>
             <ArrowLeftOutlined onClick={() => this.back()} style={{margin:'0 15px',fontSize:20,color:'green'}}/>
@@ -55,7 +72,7 @@ export default class ProductDetial extends Component {
                         <Item>
                             <div>
                             <span className='left'>所属分类：</span>
-                            <span style={{color:'#1DA57A'}}>电脑 -> 笔记本</span>
+                            <span style={{color:'#1DA57A'}}>{cname1} --> {cname2? cname2 : ''}</span>
                             </div>
                         </Item>
                         <Item>
